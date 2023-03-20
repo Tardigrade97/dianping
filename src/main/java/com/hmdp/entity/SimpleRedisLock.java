@@ -5,7 +5,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -39,16 +38,16 @@ public class SimpleRedisLock implements ILock {
         return Boolean.TRUE.equals(aBoolean);
     }
 
-//    @Override
-//    public void unlock() {
-//        // 获取线程标识
-//        String threadId = ID_PREFIX + Thread.currentThread().getId();
-//        String id = stringRedisTemplate.opsForValue().get(LOCK_PREFIX + lockName);
-//        // 判断是否是当前线程持有的锁
-//        if (threadId.equals(id)) {
-//            stringRedisTemplate.delete(LOCK_PREFIX + lockName);
-//        }
-//    }
+/*    @Override
+    public void unlock() {
+        // 获取线程标识
+        String threadId = ID_PREFIX + Thread.currentThread().getId();
+        String id = stringRedisTemplate.opsForValue().get(LOCK_PREFIX + lockName);
+        // 判断是否是当前线程持有的锁
+        if (threadId.equals(id)) {
+            stringRedisTemplate.delete(LOCK_PREFIX + lockName);
+        }
+    }*/
     @Override
     public void unlock() {
         // 调用lua脚本，保证原子性
